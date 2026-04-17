@@ -1,0 +1,13 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: Inter, "Segoe UI", Roboto, sans-serif;
+  background:
+    radial-gradient(circle at 12% 0%, rgba(255, 224, 130, 0.08), transparent 28%),
+    radial-gradient(circle at 88% 0%, rgba(122, 91, 255, 0.12), transparent 30%),
+    linear-gradient(180deg, #0a0a0f 0%, #09090d 60%, #0d0b15 100%);
+  color: #f3f1fb;
+}
