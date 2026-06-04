@@ -1,8 +1,8 @@
-﻿namespace CollegeRating.Models
+﻿namespace CollegeRating.Models;
+
+public class Role
 {
-    public class Role
-    {
-        public int Id { get; set; }
-        public string Name { get; set; } = string.Empty;
-    }
+    public int Id { get; set; }
+    public string Name { get; set; } = string.Empty; // Student / Teacher / Admin
 }
+

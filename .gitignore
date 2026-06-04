@@ -1,0 +1,15 @@
+.vs/
+node_modules/
+dist/
+.vite/
+
+bin/
+obj/
+publish/
+publish-self/
+
+*.log
+*.user
+*.suo
+appsettings.Development.json
+*.dt

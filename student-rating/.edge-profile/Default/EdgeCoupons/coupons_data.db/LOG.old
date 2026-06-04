@@ -1,0 +1,10 @@
+2026/05/29-14:10:26.699 42b4 Reusing MANIFEST C:\Users\s1zer\OneDrive\Рабочий стол\keksik-sourceу\student-rating\.edge-profile\Default\EdgeCoupons/coupons_data.db/MANIFEST-000001
+2026/05/29-14:10:26.700 42b4 Recovering log #4
+2026/05/29-14:10:26.710 42b4 Level-0 table #7: started
+2026/05/29-14:10:26.723 42b4 Level-0 table #7: 682740 bytes OK
+2026/05/29-14:10:26.726 42b4 Recovering log #7
+2026/05/29-14:10:26.729 42b4 Reusing old log C:\Users\s1zer\OneDrive\Рабочий стол\keksik-sourceу\student-rating\.edge-profile\Default\EdgeCoupons/coupons_data.db/000007.log 
+2026/05/29-14:10:26.731 42b4 Delete type=0 #4
+2026/05/29-14:10:26.957 3a10 Level-0 table #9: started
+2026/05/29-14:10:26.963 3a10 Level-0 table #9: 682740 bytes OK
+2026/05/29-14:10:26.966 3a10 Delete type=0 #7

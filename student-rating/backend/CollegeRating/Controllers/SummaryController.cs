@@ -7,33 +7,39 @@ namespace CollegeRating.Controllers
 {
     [ApiController]
     [Route("api/summary")]
-    [Authorize]
+    [AllowAnonymous]
     public class SummaryController : ControllerBase
     {
         private readonly AppDbContext _context;
 
-        public SummaryController(AppDbContext context) => _context = context;
+        public SummaryController(AppDbContext context)
+        {
+            _context = context;
+        }
 
         [HttpGet]
-        public IActionResult Get()
+        public async Task<IActionResult> Get(CancellationToken ct)
         {
-            var groupsCount = _context.Groups.Count();
-            var studentsCount = _context.Students.Count();
-            var nominationsCount = _context.Nominations.Count();
+            var groupsCount = await _context.Groups.CountAsync(ct);
+            var studentsCount = await _context.Students.CountAsync(ct);
+            var nominationsCount = await _context.Nominations.CountAsync(ct);
 
-            var topStudent = _context.Students
+            var topStudent = await _context.Students
                 .Include(s => s.Rating)
-                .AsEnumerable()
-                .OrderByDescending(s => s.Rating?.TotalPoints ?? 0)
-                .Select(s => new { FullName = s.FullName, total = s.Rating?.TotalPoints ?? 0 })
-                .FirstOrDefault();
+                .OrderByDescending(s => s.Rating != null ? s.Rating.TotalPoints : 0)
+                .Select(s => new
+                {
+                    fullName = s.FullName,
+                    total = s.Rating != null ? s.Rating.TotalPoints : 0
+                })
+                .FirstOrDefaultAsync(ct);
 
             return Ok(new
             {
                 groupsCount,
                 studentsCount,
                 nominationsCount,
-                topStudent = topStudent ?? new { FullName = "-", total = 0m }
+                topStudent = topStudent ?? new { fullName = "-", total = 0m }
             });
         }
     }

@@ -1,0 +1,142 @@
+{
+   "checksum": "e778667ad1940f0b65c4cfcdb94ec699",
+   "roots": {
+      "bookmark_bar": {
+         "children": [ {
+            "date_added": "13378682651211472",
+            "date_last_used": "13419283713014874",
+            "guid": "9badf6cd-948b-4a5e-89d0-b009920fd7e8",
+            "id": "7",
+            "meta_info": {
+               "power_bookmark_meta": ""
+            },
+            "name": "chatgpt.com",
+            "show_icon": false,
+            "source": "sync",
+            "type": "url",
+            "url": "https://chatgpt.com/",
+            "visit_count": 8
+         }, {
+            "date_added": "13418291949205906",
+            "date_last_used": "0",
+            "guid": "fb1c8b23-23dc-4621-9784-ea86b4412e83",
+            "id": "8",
+            "name": "678 · Входящие — Яндекс Почта",
+            "show_icon": false,
+            "source": "sync",
+            "type": "url",
+            "url": "https://mail.yandex.ru/?uid=755990325#/tabs/relevant",
+            "visit_count": 1
+         }, {
+            "date_added": "13418292015869326",
+            "date_last_used": "0",
+            "guid": "fda7a0ab-f18c-4a36-90fc-8d67c389e35b",
+            "id": "9",
+            "name": "Входящие (987) - s1ze.raffael20055@gmail.com - Gmail",
+            "show_icon": false,
+            "source": "sync",
+            "type": "url",
+            "url": "https://mail.google.com/mail/u/0/#inbox",
+            "visit_count": 1
+         }, {
+            "date_added": "13418292768931309",
+            "date_last_used": "0",
+            "guid": "02995684-6066-4712-8087-3a37650ac2b7",
+            "id": "10",
+            "name": "Twitch",
+            "show_icon": false,
+            "source": "sync",
+            "type": "url",
+            "url": "https://www.twitch.tv/",
+            "visit_count": 1
+         }, {
+            "date_added": "13418293430943430",
+            "date_last_used": "0",
+            "guid": "abaeaf9d-0385-4db7-b458-23e2eab7bc1c",
+            "id": "11",
+            "name": "YouTube",
+            "show_icon": false,
+            "source": "sync",
+            "type": "url",
+            "url": "https://www.youtube.com/index?ysclid=mmvpr1c0kt2636824",
+            "visit_count": 1
+         }, {
+            "date_added": "13418293556034184",
+            "date_last_used": "0",
+            "guid": "3cd25373-47b6-4dac-8c90-6622c98c7f40",
+            "id": "12",
+            "name": "DeepSeek - Into the Unknown",
+            "show_icon": false,
+            "source": "sync",
+            "type": "url",
+            "url": "https://chat.deepseek.com/",
+            "visit_count": 1
+         }, {
+            "date_added": "13418293632304553",
+            "date_last_used": "13419461858449837",
+            "guid": "2d0ede27-de1b-462d-a8aa-cc45af9ac3de",
+            "id": "13",
+            "name": "Kick",
+            "show_icon": false,
+            "source": "sync",
+            "type": "url",
+            "url": "https://kick.com/",
+            "visit_count": 4
+         }, {
+            "date_added": "13418293796128574",
+            "date_last_used": "0",
+            "guid": "56a4a4e3-dca7-47ae-a606-eedb7580f2f5",
+            "id": "14",
+            "name": "CYBERSHOKE – Серверы КС 2 (CS2)",
+            "show_icon": false,
+            "source": "sync",
+            "type": "url",
+            "url": "https://cybershoke.net/ru",
+            "visit_count": 1
+         } ],
+         "date_added": "13424529088406994",
+         "date_last_used": "0",
+         "date_modified": "13418293796128574",
+         "guid": "0bc5d13f-2cba-5d74-951f-3f233fe6c908",
+         "id": "1",
+         "name": "Панель избранного",
+         "source": "unknown",
+         "type": "folder"
+      },
+      "other": {
+         "children": [  ],
+         "date_added": "13424529088406994",
+         "date_last_used": "0",
+         "date_modified": "0",
+         "guid": "82b081ec-3dd3-529c-8475-ab6c344590dd",
+         "id": "2",
+         "name": "Другое избранное",
+         "source": "unknown",
+         "type": "folder"
+      },
+      "synced": {
+         "children": [  ],
+         "date_added": "13424529088406994",
+         "date_last_used": "0",
+         "date_modified": "0",
+         "guid": "4cf2e351-0e85-532b-bb37-df045d8f8d0f",
+         "id": "3",
+         "name": "Избранное на мобильных устройствах",
+         "source": "unknown",
+         "type": "folder"
+      },
+      "workspaces_v2": {
+         "children": [  ],
+         "date_added": "13424529088406994",
+         "date_last_used": "0",
+         "date_modified": "0",
+         "guid": "75aa6670-344f-549d-b742-660f029506ab",
+         "id": "5",
+         "name": "Рабочие пространства",
+         "source": "unknown",
+         "type": "folder"
+      }
+   },
+   "sync_metadata": "CjEKDgiIgQISCGN1i0WdAQAAEgAqGHhzQ3pKdzRNalhxT2k2L1k5WDNBZ1E9PUgDoAYHEq0BCAwSqAEKHExSNzk0RTdsRUNOU2YyU3NnOW5DU0NOelIraz0SJDNjZDI1MzczLTQ3YjYtNGRhYy04YzkwLTY2MjJjOThjN2Y0MBgAIAAoADDar6L/zzM4mLai/88zQJi2ov/PM0ocaXEzK1dkK21IRmVqVVdyOEJTM0ZzdkhTRElRPVofIh3/WlEyTTJPb0VCL3VjV2c3bHRlTTNSbGk1a0RzPWXllsc4wj4CYAUSjgEIAxKJAQocbmpnRHU4OGVDcnZYcDg2cEQ3ZkhHY3FGcDg4PRIkODE2Y2U4N2MtYmI0NC01NTljLTlkZWUtOGYwZDFhMDU5NGY4GAAgACgAMLet8NHaLzi/i4j96S9Av4uI/ekvShx5ek5CMDFjbjU0QTdjUlUwdVQrL1BnbVR0VW89WgBlAAAAAMI+AmAAEq4BCA4SqQEKHE1mdWs4RFM5RENrOTJIZDRDMWI2UWd5bGtQaz0SJDU2YTRhNGUzLWRjYTctNDdhZS1hNjA2LWVlZGI3NTgwZjJmNRgAIAAoADDohLH/zzM4koux/88zQJKLsf/PM0ocNmh5Zzh5d3hkODdOUU56YlVtaDlCeU56dW1jPVogIh7/1mpKVjN0WmFWUFhINkxtZ3ZwQ0VKTmZXcUFsWT1lg1qHUcI+AmAFEq0BCAkSqAEKHDFMY05aSHFHR09mYmNWRlg0bFo2cW5VOXJBYz0SJGZkYTdhMGFiLWYxOGMtNGEzNi05MGZjLThkNjdjMzg5ZTM1YhgAIAAoADDQrsT+zzM4urfE/s8zQLq3xP7PM0ocZ1BGemJMMlE5K2dIK0toYnBVRnE2bVRjT3NZPVofIh37NVh1bmtSZlFpcEtkMU56WVpLdzRlVklINzJ3PWUiOZg2wj4CYAUSrgEIDRKpAQoccVdoVFpqa21VNVVQbXQ5bWpaUjdZM1J0bFA0PRIkMmQwZWRlMjctZGUxYi00NjJkLWE4YWEtY2M0NWFmOWFjM2RlGAAgACgAMOLqrazUMzikhqf/zzNApIan/88zShwvQmV4VDYweTViYTJZdk9SMHRDZm5QbDBrTFU9WiAiHv+tTnJhYVVYM0JmY1J4UVE3TnNacDR6OWNkeGJvPWVlbzFzwj4CYAUSjgEIARKJAQoceXhKLzZmdmtlY3I3a3A1RVF6QjR0V0xwZGJFPRIkZWFhMmMwNGEtZGNmMS01MzA3LWE5YmUtYjYwMjZjZmY5MjIzGAAgACgAMLet8NHaLzjei4j96S9A3ouI/ekvShxhUkNXTGdoRjliNUlucUtJRHZ1Si9qdlFrRmM9WgBlAAAAAMI+AmAAEq0BCAoSqAEKHGZ6Uzlrb0pkRXVVQVpYbG0xbWtJVjNQRGU5Zz0SJDAyOTk1Njg0LTYwNjYtNDcxMi04MDg3LTNhMzc2NTBhYzJiNxgAIAAoADDJ//T+zzM40oL1/s8zQNKC9f7PM0ocTmdLaEhPRERZZmJCeEdBdVdmeWtQVEtwbjBVPVofIh39bjdZSU80OG5RWDE2RXNxQ24vWmhVQUh5WEVNPWWn+5gQwj4CYAUSrQEICxKoAQocVmRqV1gyaWRxbTNDNWk2Qi80aEc1T3QyY01jPRIkYWJhZWFmOWQtMDM4NS00ZGI3LWI0NTgtMjNlMmVhYjdiYzFjGAAgACgAMMT2mv/PMzjT+5r/zzNA0/ua/88zShxsaGR0NVJpMEZ4M0pwNWlyTGdoMHZ1anhEWVk9Wh8iHf5Ya2pabXZaRmFLOWxlMEh6VmMxOFR0OUtIMFU9ZQAAAADCPgJgBRKOAQgCEokBChxZY1NUb252RVNQd3FDczRMMmNyVmh2NjhMOTg9EiQ0N2E5YmZhMy0yM2E2LTUwOTUtYmU2OS1mZWJkNTFjZWFmZTQYACAAKAAwt63w0dovOKCLiP3pL0Cgi4j96S9KHG9QVmtod0JSYlY2NUtDV1IyK0lPTkhXb091OD1aAGUAAAAAwj4CYAASrQEICBKoAQoccWZvL0J3TlNoaEJKb2xOTjFuQS9paTZTUlpFPRIkZmIxYzhiMjMtMjNkYy00NjIxLTk3ODQtZWE4NmI0NDEyZTgzGAAgACgAMPelwP7PMziJs8D+zzNAibPA/s8zShxEeTZtZmRIRTBCcUNFWUZkb0s2bXZ3Tm1FQWM9Wh8iHfcvUmFkaEZ1SmRSQUtzcHpheE54Q09EMUZqRDQ9ZUTR8j/CPgJgBRKOAQgFEokBChx3UkJyWkwrNlBBOWF2S2dqTlA3SlhETGNmdnM9EiQzOTgxZGE4NS1kYTJlLTVhYTctOGVhNS0xMmUyOTJhMmE1NDYYACAAKAAwysGe/s8zOLLDnv7PM0Cyw57+zzNKHG5teDY1c1FEdnhJOFRnRWV2K0ErbnR0b1NuND1aAGUAAAAAwj4CYAASrQEIBxKoAQoca2dhVTYrbmVKS3dVUnhMTHlqdDdjdGl2eTJ3PRIkOWJhZGY2Y2QtOTQ4Yi00YTVlLTg5ZDAtYjAwOTkyMGZkN2U4GAAgACgAMJa1tdfTMzidoM/6vDJAnaDP+rwyShxjNU5ZNTFJSCtaWFBiYXdTNkwwdnJCQzdIdms9Wh8iHe45M0EvMG5EcnpqcVNOUEk2dzlISWhFZWk5VzQ9ZYal2MjCPgJgBTAAOAA=",
+   "version": 1
+}

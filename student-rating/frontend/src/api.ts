@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const api = axios.create({
-    baseURL: 'https://localhost:7258/api', // Адрес вашего бэкенда
+    baseURL: '/api',
 });
 
 // Перехватчик для добавления JWT токена в каждый запрос

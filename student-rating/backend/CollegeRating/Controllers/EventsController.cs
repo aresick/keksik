@@ -1,80 +1,62 @@
 ﻿using CollegeRating.Data;
-using CollegeRating.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
-namespace CollegeRating.Controllers
+namespace CollegeRating.Controllers;
+
+[ApiController]
+[Route("api/events")]
+public class EventsController : ControllerBase
 {
-    [ApiController]
-    [Route("api/events")]
-    public class EventsController : ControllerBase
+    private readonly AppDbContext _context;
+    public EventsController(AppDbContext context) => _context = context;
+
+    [HttpGet("feed")]
+    public async Task<IActionResult> GetFeed(int count = 10, CancellationToken ct = default)
     {
-        private readonly AppDbContext _context;
-
-        public EventsController(AppDbContext context) => _context = context;
-
-        [HttpGet("feed")]
-        public IActionResult GetFeed(int count = 10)
-        {
-            var events = _context.ActivityEvents
-                .OrderByDescending(e => e.CreatedAt)
-                .Take(count)
-                .Select(e => new
-                {
-                    e.Id,
-                    e.Text,
-                    time = e.CreatedAt.ToString("HH:mm"),
-                    date = e.CreatedAt.ToString("dd.MM.yyyy")
-                })
-                .ToList();
-            return Ok(events);
-        }
-
-        [HttpGet("achievements")]
-        public IActionResult GetAchievements()
-        {
-            var groupsWithPoints = _context.Groups
-                .Select(g => new
-                {
-                    g.Name,
-                    TotalPoints = g.Students.Sum(s => s.Rating.TotalPoints)
-                })
-                .AsEnumerable()
-                .OrderByDescending(x => x.TotalPoints)
-                .ToList();
-
-            var mostActiveGroup = groupsWithPoints.FirstOrDefault();
-
-            var topStudentToday = _context.Students
-                .Include(s => s.Rating)
-                .AsEnumerable()
-                .OrderByDescending(s => s.Rating?.TotalPoints ?? 0)
-                .FirstOrDefault();
-
-            var totalStudents = _context.Students.Count();
-            var studentsWithNominations = _context.StudentNominations.Select(sn => sn.StudentId).Distinct().Count();
-            var teamSpirit = totalStudents > 0 ? (studentsWithNominations * 100 / totalStudents) : 0;
-
-            return Ok(new
+        var events = await _context.ActivityEvents
+            .OrderByDescending(e => e.CreatedAt)
+            .Take(Math.Clamp(count, 1, 50))
+            .Select(e => new
             {
-                mostActiveGroup = mostActiveGroup?.Name ?? "—",
-                breakthrough = topStudentToday != null
-                    ? $"{topStudentToday.FullName} (+{topStudentToday.Rating?.TotalPoints ?? 0})"
-                    : "—",
-                bestDiscipline = "Алгоритмы",
-                teamSpirit = $"{teamSpirit}%"
-            });
-        }
+                e.Id,
+                e.Text,
+                time = e.CreatedAt.ToLocalTime().ToString("HH:mm"),
+                date = e.CreatedAt.ToLocalTime().ToString("dd.MM.yyyy"),
+                e.EventType
+            })
+            .ToListAsync(ct);
+        return Ok(events);
+    }
 
-        public static void AddEvent(AppDbContext context, string text, string eventType = "general")
-        {
-            context.ActivityEvents.Add(new ActivityEvent
+    [HttpGet("achievements")]
+    public async Task<IActionResult> GetAchievements(CancellationToken ct)
+    {
+        var groupsWithPoints = await _context.Groups
+            .Select(g => new
             {
-                Text = text,
-                CreatedAt = DateTime.UtcNow,
-                EventType = eventType
-            });
-            context.SaveChanges();
-        }
+                g.Name,
+                TotalPoints = g.Students.Sum(s => s.Rating == null ? 0 : s.Rating.TotalPoints)
+            })
+            .OrderByDescending(x => x.TotalPoints)
+            .ToListAsync(ct);
+
+        var topStudent = await _context.Students
+            .Include(s => s.Rating)
+            .OrderByDescending(s => s.Rating == null ? 0 : s.Rating.TotalPoints)
+            .FirstOrDefaultAsync(ct);
+
+        var totalStudents = await _context.Students.CountAsync(ct);
+        var studentsWithNominations = await _context.StudentNominations.Select(sn => sn.StudentId).Distinct().CountAsync(ct);
+        var teamSpirit = totalStudents > 0 ? studentsWithNominations * 100 / totalStudents : 0;
+
+        return Ok(new
+        {
+            mostActiveGroup = groupsWithPoints.FirstOrDefault()?.Name ?? "—",
+            breakthrough = topStudent != null ? $"{topStudent.FullName} (+{topStudent.Rating?.TotalPoints ?? 0})" : "—",
+            bestDiscipline = "Алгоритмы",
+            teamSpirit = $"{teamSpirit}%"
+        });
     }
 }
+

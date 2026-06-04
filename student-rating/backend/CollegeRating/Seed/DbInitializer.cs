@@ -1,97 +1,49 @@
-﻿using CollegeRating.Models;
-using CollegeRating.Data;
+﻿using CollegeRating.Data;
+using CollegeRating.Models;
+using Microsoft.EntityFrameworkCore;
 
-namespace CollegeRating.Seed
+namespace CollegeRating.Seed;
+
+public static class DbInitializer
 {
-    public static class DbInitializer
+    public static void Initialize(AppDbContext context)
     {
-        public static void Initialize(AppDbContext context)
-        {
-            if (context.Groups.Any())
-                return;
+        context.Database.Migrate();
 
-            // 1. Роли
-            var roles = new List<Role>
-            {
+        if (!context.Roles.Any())
+        {
+            context.Roles.AddRange(
                 new Role { Name = "Student" },
                 new Role { Name = "Teacher" },
-                new Role { Name = "Admin" }
-            };
-            context.Roles.AddRange(roles);
+                new Role { Name = "Admin" });
             context.SaveChanges();
+        }
 
-            // 2. Группы
-            var groups = new List<Group>
+        if (!context.Groups.Any())
+        {
+            var groups = new[]
             {
-                new Group { Name = "3ПД-123-о" },
-                new Group { Name = "3ПД-223-о" },
-                new Group { Name = "3ПД-323-о" },
-                new Group { Name = "3ПД-423-о" },
-                new Group { Name = "3ПД-523-о" },
-                new Group { Name = "3ИСП-223-о" },
-                new Group { Name = "3ИСП-323-о" },
-                new Group { Name = "3ПКД-123-об" },
-                new Group { Name = "3ИСП-23-с" },
-                new Group { Name = "3ПКД-23-с" },
-                new Group { Name = "3ИСП-123-об" },
-                new Group { Name = "3Б-23-о" },
-                new Group { Name = "3БД-23-о" },
-                new Group { Name = "3ОДЛ-23-о" },
-                new Group { Name = "3ЗУ-23-о" },
-                new Group { Name = "3ТДио-23-о" },
-                new Group { Name = "3ЮРпо-223-о" },
-                new Group { Name = "3ТГ-123-об" },
-                new Group { Name = "3ТГ-223-о" },
-                new Group { Name = "3ПКД-223-о" },
-                new Group { Name = "3ЮРсо-223-о" }
-            };
+                "3ПД-123-о", "3ПД-223-о", "3ПД-323-о", "3ПД-423-о", "3ПД-523-о",
+                "3ИСП-223-о", "3ИСП-323-о", "3ПКД-123-об", "3ИСП-23-с", "3ПКД-23-с",
+                "3ИСП-123-об", "3Б-23-о", "3БД-23-о", "3ОДЛ-23-о", "3ЗУ-23-о",
+                "3ТДио-23-о", "3ЮРпо-223-о", "3ТГ-123-об", "3ТГ-223-о", "3ПКД-223-о", "3ЮРсо-223-о"
+            }.Select(name => new Group { Name = name, LocalUpdatedAt = DateTime.UtcNow });
             context.Groups.AddRange(groups);
             context.SaveChanges();
+        }
 
-            // 3. Студенты
-            var students = new List<Student>();
-            var studentRoleId = roles.First(r => r.Name == "Student").Id;
-            var teacherRoleId = roles.First(r => r.Name == "Teacher").Id;
+        var studentRole = context.Roles.First(r => r.Name == "Student");
+        var teacherRole = context.Roles.First(r => r.Name == "Teacher");
+        var adminRole = context.Roles.First(r => r.Name == "Admin");
+        var firstGroup = context.Groups.First();
 
-            foreach (var group in groups)
-            {
-                for (int i = 1; i <= 25; i++)
-                {
-                    students.Add(new Student
-                    {
-                        FullName = $"Студент {i} ({group.Name})",
-                        Email = $"student{i}_group{group.Id}@test.com",
-                        PasswordHash = BCrypt.Net.BCrypt.HashPassword("123456"),
-                        GroupId = group.Id,
-                        RoleId = studentRoleId
-                    });
-                }
-            }
+        EnsureUser(context, "Иван Петров", "ivan@student.edu", "demo", firstGroup.Id, studentRole.Id);
+        EnsureUser(context, "Алексей Преподаватель", "alexey@teacher.edu", "demo", firstGroup.Id, teacherRole.Id);
+        EnsureUser(context, "Админ Колледжа", "admin@college.edu", "demo", firstGroup.Id, adminRole.Id);
 
-            // Демо-пользователи
-            students.Add(new Student
-            {
-                FullName = "Иван Петров",
-                Email = "ivan@student.edu",
-                PasswordHash = BCrypt.Net.BCrypt.HashPassword("demo"),
-                GroupId = groups[0].Id,
-                RoleId = studentRoleId
-            });
-            students.Add(new Student
-            {
-                FullName = "Алексей Преподаватель",
-                Email = "alexey@teacher.edu",
-                PasswordHash = BCrypt.Net.BCrypt.HashPassword("demo"),
-                GroupId = groups[0].Id,
-                RoleId = teacherRoleId
-            });
-
-            context.Students.AddRange(students);
-            context.SaveChanges();
-
-            // 4. Номинации
-            var nominations = new List<Nomination>
-            {
+        if (!context.Nominations.Any())
+        {
+            context.Nominations.AddRange(
                 new Nomination { Title = "Код-мастер", Type = "motivating", Weight = 1.3m },
                 new Nomination { Title = "Идейный генератор", Type = "motivating", Weight = 1.2m },
                 new Nomination { Title = "Архитектор решений", Type = "motivating", Weight = 1.15m },
@@ -99,35 +51,40 @@ namespace CollegeRating.Seed
                 new Nomination { Title = "Командный катализатор", Type = "motivating", Weight = 1.05m },
                 new Nomination { Title = "Спящий тайфун", Type = "fun", Weight = 0.4m },
                 new Nomination { Title = "Стелс-студент", Type = "fun", Weight = 0.45m },
-                new Nomination { Title = "Энерджайзер", Type = "fun", Weight = 0.75m }
-            };
-            context.Nominations.AddRange(nominations);
+                new Nomination { Title = "Энерджайзер", Type = "fun", Weight = 0.75m });
             context.SaveChanges();
+        }
 
-            // 5. Рейтинги (все с нуля)
-            var ratings = new List<Rating>();
-            foreach (var student in students)
-            {
-                ratings.Add(new Rating
-                {
-                    StudentId = student.Id,
-                    TotalPoints = 0,
-                    LastUpdated = DateTime.UtcNow
-                });
-            }
-            context.Ratings.AddRange(ratings);
+        if (!context.ActivityEvents.Any())
+        {
+            context.ActivityEvents.Add(new ActivityEvent { Text = "Система запущена. Добро пожаловать!", EventType = "system" });
             context.SaveChanges();
+        }
+    }
 
-            // 6. Начальные события для ленты
-            var events = new List<ActivityEvent>
+    private static void EnsureUser(AppDbContext context, string name, string email, string password, int groupId, int roleId)
+    {
+        var user = context.Students.Include(s => s.Rating).FirstOrDefault(s => s.Email == email);
+        if (user == null)
+        {
+            user = new Student
             {
-                new ActivityEvent { Text = "Система запущена. Добро пожаловать!", CreatedAt = DateTime.UtcNow, EventType = "system" },
-                new ActivityEvent { Text = "Добавлены первые номинации", CreatedAt = DateTime.UtcNow.AddMinutes(-5), EventType = "nomination_added" },
-                new ActivityEvent { Text = "Группа 3ПД-123-о вышла в лидеры", CreatedAt = DateTime.UtcNow.AddHours(-1), EventType = "group_leader" },
-                new ActivityEvent { Text = "Лидер дня: Студент 1 (3ПД-123-о)", CreatedAt = DateTime.UtcNow.AddHours(-2), EventType = "student_top" }
+                FullName = name,
+                Email = email,
+                PasswordHash = BCrypt.Net.BCrypt.HashPassword(password),
+                GroupId = groupId,
+                RoleId = roleId,
+                LocalUpdatedAt = DateTime.UtcNow
             };
-            context.ActivityEvents.AddRange(events);
+            context.Students.Add(user);
+            context.SaveChanges();
+        }
+
+        if (user.Rating == null)
+        {
+            context.Ratings.Add(new Rating { StudentId = user.Id, TotalPoints = 0, LocalUpdatedAt = DateTime.UtcNow });
             context.SaveChanges();
         }
     }
 }
+

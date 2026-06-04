@@ -2,13 +2,16 @@ using CollegeRating.Data;
 using CollegeRating.Seed;
 using CollegeRating.Services;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.DataProtection;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
-using System;
 using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
+
+builder.Services.AddDataProtection()
+    .PersistKeysToFileSystem(new DirectoryInfo(Path.Combine(builder.Environment.ContentRootPath, ".data-protection-keys")));
 
 // DB
 builder.Services.AddDbContext<AppDbContext>(options =>
@@ -16,13 +19,17 @@ builder.Services.AddDbContext<AppDbContext>(options =>
 
 // Services
 builder.Services.AddScoped<JwtService>();
+builder.Services.AddScoped<EventLogService>();
+builder.Services.AddHttpContextAccessor();
+builder.Services.AddScoped<CurrentUserService>();
+
 
 // CORS
 builder.Services.AddCors(options =>
 {
     options.AddPolicy("AllowReact", policy =>
     {
-        policy.WithOrigins("http://localhost:5173")
+        policy.WithOrigins("http://localhost:5173", "http://127.0.0.1:5173")
               .AllowAnyHeader()
               .AllowAnyMethod()
               .AllowCredentials();
@@ -64,6 +71,7 @@ builder.Services.AddSwaggerGen(options =>
         BearerFormat = "JWT",
         Description = "Введите JWT токен"
     });
+
     options.AddSecurityRequirement(new OpenApiSecurityRequirement
     {
         {
@@ -82,23 +90,27 @@ builder.Services.AddSwaggerGen(options =>
 
 var app = builder.Build();
 
-// Seed
+// DB init
 using (var scope = app.Services.CreateScope())
 {
     var db = scope.ServiceProvider.GetRequiredService<AppDbContext>();
-    db.Database.EnsureCreated();
-    if (!db.Groups.Any())
-    {
-        DbInitializer.Initialize(db);
-    }
+
+    // ВАЖНО: вместо EnsureCreated используем миграции
+    db.Database.Migrate();
 }
 
 app.UseSwagger();
 app.UseSwaggerUI();
+
 app.UseRouting();
 app.UseCors("AllowReact");
+
 app.UseAuthentication();
 app.UseAuthorization();
+
+app.MapGet("/", () => Results.Redirect("/swagger"));
+app.MapGet("/health", () => Results.Ok(new { status = "ok" }));
+
 app.MapControllers();
 
-app.Run("https://localhost:7258");
+app.Run("http://0.0.0.0:7258");
